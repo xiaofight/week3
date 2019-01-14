@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<center>
+		<h1>2019八维马拉松</h1>
+			<table class="tab">
+				<tr>
+					<td><input type="text" id="card" placeholder="证件号" onblur="card()"><span id="sCard"></span></td>
+				</tr>
+				<tr>
+					<td><input type="text" id="name" placeholder="姓名"></td>
+				</tr>
+				<tr>
+					<td><input type="text" id="phone" onblur="phone()" placeholder="电话"><span id="sPhone"></span></td>
+				</tr>
+				<tr>
+					<td><input type="text" id="email" placeholder="邮箱" onblur="email()"><span id="sEmail"></span></td>
+				</tr>
+				<tr>
+					<td>
+						<input type="radio" name="type" value="全程">全程
+						<input type="radio" name="type" value="半程">半程
+					</td>
+				</tr>
+				<tr>
+					<td><input type="text" id="addtime" placeholder="参赛时间"></td>
+				</tr>
+				<tr>
+					<td><button class="btn" onclick="sub()">报名参赛</button></td>
+				</tr>
+			</table>
+	</center>
+</body>
+</html>
+<script>
+	function phone(){
+		var phone = document.getElementById('phone').value;
+		if(phone.length == 0){
+			document.getElementById('sPhone').innerHTML = "<font>手机号不能为空</font>";
+		}else{
+			document.getElementById('sPhone').innerHTML = "√";
+		}
+	}
+	function email(){
+		var email = document.getElementById('email').value;
+		if(email.length == 0){
+			document.getElementById('sEmail').innerHTML = "<font>邮箱不能为空</font>";
+		}else{
+			document.getElementById('sEmail').innerHTML = "√";
+		}
+	}
+	function card(){
+		var card = document.getElementById('card').value;
+		if(card.length == 0){
+			document.getElementById('sCard').innerHTML = "<font>身份证号不能为空</font>";
+		}else{
+			document.getElementById('sCard').innerHTML = "√";
+		}
+	}
+	function sub(){
+		var phone = document.getElementById('phone').value;
+		var email = document.getElementById('email').value;
+		var card = document.getElementById('card').value;
+		var name = document.getElementById('name').value;
+		var addtime = document.getElementById('addtime').value;
+		var type = document.getElementsByName('type');
+		var ajax = new XMLHttpRequest();
+		ajax.send("phone:phone","email:email","card:card","name:name","addtime:addtime");
+		ajax.open("POST","{:url('/index/add')}",true);
+		ajax.onreadystatechange = function(){
+			if (ajax.readyState == 4 && ajax.status ==200){
+				alert(ajax.onresponseText);
+			}
+		}
+	}
+</script>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<center>
+		<form action="{:url('index/show')}" method="post">
+			<input type="text" name="search">
+			<button type="submit">搜索</button>
+		</form>
+		<table border="1">
+			<tr>
+				<td>证件号</td>
+				<td>名字</td>
+				<td>电话</td>
+				<td>邮箱</td>
+				<td>时间</td>
+				<td>审核状态</td>
+				<td>审核</td>
+			</tr>
+			{foreach $data as $v}
+				<tr>
+					<td>{$v['card']}</td>
+					<td>{$v['name']}</td>
+					<td>{$v['phone']}</td>
+					<td>{$v['email']}</td>
+					<td>{$v['addtime']}</td>
+					<td>
+						{if $v['status']==1}
+							以审核
+							{else /}
+							未审核
+						{/if}
+					</td>
+					<td><a href="{:url('index/edit')}">审核</a></td>
+				</tr>
+			{/foreach}
+		</table>
+		{$data|raw}
+	</center>
+</body>
+</html>
